@@ -4,19 +4,140 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>林潇豪的网站呀</title>
+    <title>林的网站</title>
     <style>
-    h1{
-        text-align:center
+        ul li{
+            list-style: none;
+        }
+    .head-tit{
+        display: block;
+        color: gold;
+        font-size: 40px;
+        text-align: center;
         }
         img{
-        width:100%;
-     
+        width: 750px;
+        height: 400px;
+        position: absolute
+        }
+        .lunbo{
+            width: 750px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .prev{
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 20px;
+            height: 40px;
+            margin-top: -20px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        .next{
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 20px;
+            height: 40px;
+            margin-top: -20px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        
+        .lunbo ul{
+            width: 200px;
+            float: left;
+            position: absolute;
+            left: 50%;
+            margin-left:-100px;
+            bottom: 10px;
+        }
+        .lunbo ul li{
+            float: left;
+            margin-right: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+        }
+        .lunbo ul .on{
+            background: red
         }
     </style>
 </head>
 <body>
-    <h1>这是我的第一个网站</h1>
-    <img src="./1.png" alt="">
+    <span class="head-tit">第一个网站</span>
+    <div class="lunbo">
+        <img src="./1.png" alt="pic" style="opacity: 1;">
+        <img src="./1.jpg" alt="pic">
+        <img src="./2.jpg" alt="pic">
+        <img src="./3.jpg" alt="pic">
+        <img src="./4.jpg" alt="pic">
+
+        <div class="prev">&lt;</div>
+        <div class="next">&gt;</div>
+
+        <ul>
+            <li class="on"></li>
+            <li class=""></li>
+            <li class=""></li>
+            <li class=""></li>
+            <li class=""></li>
+        </ul>
+    </div>
+
+
+    <script src="./jquery-1.12.0.min.js"></script>
+    <script>
+    var index=0
+    function lb(){
+        $(".lunbo img").css("opacity","0");
+        $(".lunbo img").eq(index).css("opacity","1");
+        $(".lunbo ul li").css("background","white");
+        $(".lunbo ul li").eq(index).css("background","red");
+    }
+    lb();
+    var timer
+    function autochange(){
+        timer= setInterval(function(){
+            index++;
+            if(index>$(".lunbo img").length-1){
+                index=0
+            }
+            lb();
+        },1500)
+    }
+    autochange();
+    $(".prev").click(function(){
+        clearInterval(timer);
+        index--;
+        if(index<0){
+            index=$(".lunbo img").length-1
+        }
+        lb();
+        autochange()
+    })
+    $(".next").click(function(){
+        clearInterval(timer);
+        index++;
+        if(index>$(".lunbo img").length-1){
+            index=0
+        }
+        lb();
+        autochange();
+    })
+    for(let i = 0 ; i < $(".lunbo ul li").length;i++){
+        $(".lunbo ul li").eq(i).click(function(){
+            clearInterval(timer);
+            index=i;
+            lb();
+            autochange();
+        })
+    }
+    </script>
 </body>
 </html>
